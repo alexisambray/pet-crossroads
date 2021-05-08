@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "constants.h"
+
 void displayWelcomeScreen(void) {
   puts(
       "***** Welcome to Pet Crossroads: Making Money off the Stalk Market "
@@ -12,6 +14,24 @@ void displayWelcomeScreen(void) {
   system("clear");
 }
 
+void displayDay(void) {
+  printf("***** Day 1 (Sunday), Week 1 of %d *****\n", MAX_WEEK);
+}
+
+void displayResources(void) {
+  puts("5000 Bell(s)\t\t0 Turnip(s)\n");
+}
+
+void displayCurrentTurnipPrice(void) {
+  puts("Current Turnip Price (per Turnip): 100 bells");
+}
+
+void displayStatus(void) {
+  displayDay();
+  displayResources();
+  displayCurrentTurnipPrice();
+}
+
 void game(void) {
-  // NOT IMPLEMENTED
+  displayStatus();
 }
