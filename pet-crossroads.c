@@ -1,8 +1,7 @@
 #include "pet-crossroads-lib.h"
 
-int main {
+int main() {
   displayWelcomeScreen();
   game();
-  displayGameOverScreen();
   return 0;
 }
