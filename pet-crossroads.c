@@ -3,5 +3,6 @@
 int main() {
   displayWelcomeScreen();
   game();
+
   return 0;
 }
