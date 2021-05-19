@@ -17,11 +17,16 @@ void initializeGame(int* bells,
                     int* week,
                     WeeklyPriceTrend* weeklyPriceTrend,
                     DayOfWeek* dayOfWeek);
-void displayPriceList(int turnipPrice,
+void displayPriceList(int* turnipPrice,
                       int* week,
-                      const int* sundayTurnipPrice,
-                      const int* generateSundayTurnipPrice,
+                      int* sundayTurnipPrice,
+                      int* generateSundayTurnipPrice,
                       DayOfWeek dayOfWeek);
+bool chooseBuyOrNot(int* turnipPrice,
+                    int* week,
+                    int* sundayTurnipPrice,
+                    int* generateSundayTurnipPrice,
+                    DayOfWeek dayOfWeek);
 void displayTurnipPrice(int turnipPrice);
 void displayWelcomeScreen(void);
 void displayDay(const DayOfWeek dayOfWeek, const int week);
@@ -50,10 +55,10 @@ void displayTurnipPrice(int turnipPrice) {
   printf("Daisy Mae is Selling Turnips for %d bells\n", turnipPrice);
 }
 
-void displayPriceList(int turnipPrice,
+void displayPriceList(int* turnipPrice,
                       int* week,
-                      const int* sundayTurnipPrice,
-                      const int* generateSundayTurnipPrice,
+                      int* sundayTurnipPrice,
+                      int* generateSundayTurnipPrice,
                       DayOfWeek dayOfWeek) {
   turnipPrice = *sundayTurnipPrice;
   week = 1;
@@ -67,6 +72,27 @@ void displayPriceList(int turnipPrice,
          SUNDAY_TURNIP_MIN_PRICE);
     printf("Store Price: %d\n",
            generateSundayTurnipPrice);  // RANDOM STORE PRICE
+  }
+}
+
+bool chooseBuyOrNot(int* turnipPrice,
+                    int* week,
+                    int* sundayTurnipPrice,
+                    int* generateSundayTurnipPrice,
+                    DayOfWeek dayOfWeek) {
+  char choice;
+
+  turnipPrice = sundayTurnipPrice;
+
+  printf("Would you like to buy Turnips? [Y/N] ");
+  scanf(" %c", &choice);
+  getchar();
+
+  if (toupper(choice) == 'Y') {
+    puts("You bought.");
+  } else {
+    displayPriceList(&turnipPrice, &week, &sundayTurnipPrice,
+                     &generateSundayTurnipPrice, &dayOfWeek);
   }
 }
 
@@ -126,6 +152,6 @@ void game(void) {
   initializeGame(&bells, &turnips, &turnipPrice, &sundayTurnipPrice, &week,
                  &weeklyPriceTrend, &dayOfWeek);
   displayStatus(dayOfWeek, week, bells, turnips, turnipPrice);
-  displayPriceList(&turnipPrice, &week, &sundayTurnipPrice,
-                   &generateSundayTurnipPrice, &dayOfWeek);
+  chooseBuyOrNot(turnipPrice, week, sundayTurnipPrice,
+                 generateSundayTurnipPrice, dayOfWeek);
 }
