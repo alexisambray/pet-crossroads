@@ -64,21 +64,20 @@ void displayPriceList(int* turnipPrice,
                       int* generateSundayTurnipPrice,
                       DayOfWeek dayOfWeek) {
   turnipPrice = *sundayTurnipPrice;
-  *turnips = STARTING_NUM_TURNIPS;
+  turnips = STARTING_NUM_TURNIPS;
   week = 1;
 
   for (dayOfWeek = MONDAY; dayOfWeek <= SATURDAY; dayOfWeek++) {
     printf("\nWeek #%d Day %d\n", week, dayOfWeek);
     printf("Current Turnip Stack(s): %d\n",
-           STARTING_NUM_TURNIPS);  // HOW MUCH STACKS PLAYER BUYS
+           turnips);  // HOW MUCH STACKS PLAYER BUYS
     printf("Sunday Price: %d\n", turnipPrice);
     generateSundayTurnipPrice =
-        (rand() % (SUNDAY_TURNIP_MAX_PRICE - SUNDAY_TURNIP_MIN_PRICE + 1) +
-         SUNDAY_TURNIP_MIN_PRICE);
+        generateRandInt(SUNDAY_TURNIP_MIN_PRICE, SUNDAY_TURNIP_MAX_PRICE);
     printf("Store Price: %d\n",
            generateSundayTurnipPrice);  // RANDOM STORE PRICE
   }
-  printf("%d Turnips have gone bad!\n", STARTING_NUM_TURNIPS);
+  printf("\n%d Turnips have gone bad!\n", turnips);
 }
 
 bool chooseBuyOrNot(int* turnipPrice,
@@ -133,7 +132,7 @@ void displayWelcomeScreen(void) {
 }
 
 void displayDay(const DayOfWeek dayOfWeek, const int week) {
-  printf("***** Day %d (Sunday), Week %d of %d *****\n", dayOfWeek, week,
+  printf("\n***** Day %d (Sunday), Week %d of %d *****\n", dayOfWeek, week,
          MAX_WEEK);
 }
 
@@ -158,7 +157,10 @@ void game(void) {
 
   initializeGame(&bells, &turnips, &turnipPrice, &sundayTurnipPrice, &week,
                  &weeklyPriceTrend, &dayOfWeek);
-  displayStatus(dayOfWeek, week, bells, turnips, turnipPrice);
-  chooseBuyOrNot(turnipPrice, turnips, week, sundayTurnipPrice,
-                 generateSundayTurnipPrice, dayOfWeek);
+
+  for (week = 1; week <= MAX_WEEK; week++) {
+    displayStatus(dayOfWeek, week, bells, turnips, turnipPrice);
+    chooseBuyOrNot(turnipPrice, turnips, week, sundayTurnipPrice,
+                   generateSundayTurnipPrice, dayOfWeek);
+  }
 }
